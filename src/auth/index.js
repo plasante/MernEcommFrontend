@@ -29,3 +29,10 @@ export const signIn = (user) => {
     })
     .catch(error => console.log(error));
 }
+
+export const authenticate = (data, next) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('jwt', JSON.stringify(data));
+    next();
+  }
+}

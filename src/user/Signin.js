@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
-import {signIn} from "../auth";
+import {signIn, authenticate} from "../auth";
 import {useNavigate} from "react-router-dom";
 
 const Signin = () => {
   const [values, setValues] = useState({
-    email: '',
-    password: '',
+    email: 'pierre.lasante@videotron.ca',
+    password: '123456',
     error: '',
     loading: false,
     redirectToReferrer: false,
@@ -25,8 +25,10 @@ const Signin = () => {
     signIn({email, password})
       .then(response => {
         if (!response.error) {
-          setValues({ ...values, redirectToReferrer: true });
-          navigate('/');
+          authenticate(response, () => {
+            setValues({ ...values, redirectToReferrer: true });
+            navigate('/');
+          })
         } else {
           setValues({ ...values, error: response.error, loading: false });
         }
@@ -66,7 +68,7 @@ const Signin = () => {
   }
 
   return (
-    <Layout className={'container col-md-8 offset-md-2 '} title="Signup" description="Signup to Grocery App">
+    <Layout className={'container col-md-8 offset-md-2 '} title="Signin" description="Signin to Grocery App">
       {showLoading()}
       {showError()}
       {signUpForm()}
