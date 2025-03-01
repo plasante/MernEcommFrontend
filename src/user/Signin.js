@@ -1,10 +1,76 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from '../core/Layout';
+import {signIn} from "../auth";
+import {useNavigate} from "react-router-dom";
 
 const Signin = () => {
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    error: '',
+    loading: false,
+    redirectToReferrer: false,
+  });
+
+  const navigate = useNavigate();
+  const {email, password, error, loading, redirectToReferrer} = values;
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value, error: '' });
+  }
+
+  const clickSubmit = (e) => {
+    e.preventDefault();
+    setValues({...values, error: '', loading: true})
+    signIn({email, password})
+      .then(response => {
+        if (!response.error) {
+          setValues({ ...values, redirectToReferrer: true });
+          navigate('/');
+        } else {
+          setValues({ ...values, error: response.error, loading: false });
+        }
+      })
+  }
+
+  const signUpForm = () => {
+    return (
+      <form>
+        <div className="form-group">
+          <input onChange={handleChange} name={'email'} value={email} type='email' className={'form-control'} placeholder='Email'/>
+        </div>
+        <div className="form-group">
+          <input onChange={handleChange} name={'password'} value={password} type='password' className={'form-control'} placeholder='Password'/>
+        </div>
+        <button onClick={clickSubmit} className="btn btn primary">
+          Submit
+        </button>
+      </form>
+    );
+  }
+
+  const showError = () => {
+    return <div className={'alert alert-danger'} style={{display: error ? '' : 'none'}}>
+      {error}
+    </div>
+  }
+
+  const showLoading = () => (
+    loading && (<div className={'alert alert-info'}><h2>Loading...</h2></div>)
+  )
+
+  const redirectUser = () => {
+    if (redirectToReferrer) {
+      navigate('/');
+    }
+  }
+
   return (
-    <Layout title="Signin" description="Signin to Grocery App">
-      ...
+    <Layout className={'container col-md-8 offset-md-2 '} title="Signup" description="Signup to Grocery App">
+      {showLoading()}
+      {showError()}
+      {signUpForm()}
+      {redirectUser()}
     </Layout>
   );
 };
