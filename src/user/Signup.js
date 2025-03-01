@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import {API} from "../config";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -14,7 +15,7 @@ const Signup = () => {
   const {name, email, password, error, success} = values;
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({ ...values, [e.target.name]: e.target.value, error: '' });
   }
 
   const signUp = (user) => {
@@ -72,7 +73,7 @@ const Signup = () => {
 
   const showSuccess = () => {
     return <div className={'alert alert-info'} style={{display: success ? '' : 'none'}}>
-      New account is created. Please signin.
+      New account is created. Please <Link to={'/signin'}>Signin</Link>/
     </div>
   }
 
