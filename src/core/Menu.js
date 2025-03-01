@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {signout} from "../auth";
 
 // Notice the function parameter, it's now 'location' and not 'history'
 const isActive = (location, path) => {
@@ -13,6 +14,7 @@ const isActive = (location, path) => {
 
 const Menu = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -25,6 +27,11 @@ const Menu = () => {
         </li>
         <li className={'nav-item'}>
           <Link className={'nav-link'} style={isActive(location, '/signup')} to="/signup">Signup</Link>
+        </li>
+        <li className={'nav-item'}>
+          <span className={'nav-link'} style={{cursor: 'pointer', color: '#ffffff'}} onClick={() => signout(() => {
+            navigate('/');
+          })}>Signout</span>
         </li>
       </ul>
     </div>
