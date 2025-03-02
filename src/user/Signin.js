@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import {signIn, authenticate} from "../auth";
 import {useNavigate} from "react-router-dom";
+import Alert from "../components/Alert";
 
 const Signin = () => {
   const [values, setValues] = useState({
@@ -51,16 +52,6 @@ const Signin = () => {
     );
   }
 
-  const showError = () => {
-    return <div className={'alert alert-danger'} style={{display: error ? '' : 'none'}}>
-      {error}
-    </div>
-  }
-
-  const showLoading = () => (
-    loading && (<div className={'alert alert-info'}><h2>Loading...</h2></div>)
-  )
-
   const redirectUser = () => {
     if (redirectToReferrer) {
       navigate('/');
@@ -69,8 +60,8 @@ const Signin = () => {
 
   return (
     <Layout className={'container col-md-8 offset-md-2 '} title="Signin" description="Signin to Grocery App">
-      {showLoading()}
-      {showError()}
+      <Alert type='info' condition={loading}><h2>Loading...</h2></Alert>
+      <Alert type='error' condition={error}>{error}</Alert>
       {signUpForm()}
       {redirectUser()}
     </Layout>
