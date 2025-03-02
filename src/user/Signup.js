@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import { Link } from "react-router-dom";
 import {signUp} from "../auth";
+import Alert from "../components/Alert";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -12,6 +13,7 @@ const Signup = () => {
     success: false,
   });
 
+  // destructure las states
   const {name, email, password, error, success} = values;
 
   const handleChange = (e) => {
@@ -20,6 +22,7 @@ const Signup = () => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
+    // on specifie le body de la requete HTML
     signUp({name, email, password})
       .then(response => {
         if (!response.error) {
@@ -49,22 +52,14 @@ const Signup = () => {
     );
   }
 
-  const showError = () => {
-    return <div className={'alert alert-danger'} style={{display: error ? '' : 'none'}}>
-      {error}
-    </div>
-  }
-
-  const showSuccess = () => {
-    return <div className={'alert alert-info'} style={{display: success ? '' : 'none'}}>
-      New account is created. Please <Link to={'/signin'}>Signin</Link>/
-    </div>
-  }
-
   return (
-    <Layout className={'container col-md-8 offset-md-2 '} title="Signup" description="Signup to Grocery App">
-      {showSuccess()}
-      {showError()}
+    <Layout
+      className="container col-md-8 offset-md-2"
+      title="Signup"
+      description="Signup to Grocery App"
+    >
+      <Alert type='success' condition={success}>New account is created. Please <Link to={'/signin'}>Signin</Link></Alert>
+      <Alert type='error' condition={error}>{error}</Alert>
       {signUpForm()}
     </Layout>
   );
