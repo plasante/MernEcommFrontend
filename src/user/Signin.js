@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Layout from '../core/Layout';
 import {signIn, authenticate, isAuthenticated} from "../auth";
 import {useNavigate} from "react-router-dom";
@@ -15,7 +15,17 @@ const Signin = () => {
 
   const navigate = useNavigate();
   const {email, password, error, loading, redirectToReferrer} = values;
-  const {user} = isAuthenticated;
+  const {user} = isAuthenticated();
+
+  useEffect(() => {
+    if (redirectToReferrer) {
+      if (user && user.role.type === 1) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/user/dashboard');
+      }
+    }
+  }, [navigate, redirectToReferrer, user]);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value, error: '' });
@@ -29,7 +39,7 @@ const Signin = () => {
         if (!response.error) {
           authenticate(response, () => {
             setValues({ ...values, redirectToReferrer: true });
-            navigate('/');
+            //navigate('/');
           })
         } else {
           setValues({ ...values, error: response.error, loading: false });
@@ -53,22 +63,11 @@ const Signin = () => {
     );
   }
 
-  const redirectUser = () => {
-    if (redirectToReferrer) {
-      if (user && user.role === 1) {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/user/dashboard');
-      }
-    }
-  }
-
   return (
     <Layout className={'container col-md-8 offset-md-2 '} title="Signin" description="Signin to Grocery App">
       <Alert type='info' condition={loading}><h2>Loading...</h2></Alert>
       <Alert type='error' condition={error}>{error}</Alert>
       {signUpForm()}
-      {redirectUser()}
     </Layout>
   );
 };

@@ -4,7 +4,9 @@ import Signup from './user/Signup';
 import Signin from './user/Signin';
 import Home from './core/Home';
 import Dashboard from './user/UserDashboard';
+import AdminDashboard from './user/AdminDashboard';
 import PrivateRoute from './auth/PrivateRoute';
+import AdminRoute from "./auth/AdminRoute";
 
 const RouteTree = () => {
   return (
@@ -15,6 +17,9 @@ const RouteTree = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/user/dashboard" element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
+        </Route>
+        <Route path="/admin/dashboard" element={<AdminRoute />}>
+          <Route index element={<AdminDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -22,9 +22,20 @@ const Menu = () => {
         <li className={'nav-item'}>
           <Link className={'nav-link'} style={isActive(location, '/')} to="/">Home</Link>
         </li>
-        <li className={'nav-item'}>
-          <Link className={'nav-link'} style={isActive(location, '/user/dashboard')} to="/user/dashboard">Dashboard</Link>
-        </li>
+
+        {isAuthenticated() && isAuthenticated().user.role.type === 0 && (
+          <li className={'nav-item'}>
+            <Link className={'nav-link'} style={isActive(location, '/user/dashboard')}
+                  to="/user/dashboard">Dashboard</Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role.type === 1 && (
+          <li className={'nav-item'}>
+            <Link className={'nav-link'} style={isActive(location, '/admin/dashboard')}
+                  to="/admin/dashboard">Dashboard</Link>
+          </li>
+        )}
 
         {!isAuthenticated() && (
           <Fragment>
