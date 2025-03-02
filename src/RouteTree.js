@@ -13,7 +13,7 @@ const RouteTree = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<PrivateRoute />}>
+        <Route path="/user/dashboard" element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
         </Route>
       </Routes>
