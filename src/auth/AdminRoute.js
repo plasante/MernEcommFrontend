@@ -4,16 +4,21 @@ import { isAuthenticated } from './index';
 
 const AdminRoute = () => {
   const navigate = useNavigate();
+  const authStatus = isAuthenticated();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      return navigate('/signin');
-    } else {
-      if (isAuthenticated().user.role.type !== 1) {
-        return navigate('/signin');
-      }
+    // if not authenticated, redirect to sign in
+    if (!authStatus) {
+      navigate('/signin');
+      return;
     }
-  }, [navigate]);
+
+    // if not an admin, redirect to home
+    if (authStatus.user.role.type !== 1) {
+      navigate('/');
+      return;
+    }
+  }, [navigate, authStatus]);
 
   return <Outlet />;
 };
