@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from './user/Signup';
 import Signin from './user/Signin';
 import Home from './core/Home';
+import Dashboard from './user/UserDashboard';
+import PrivateRoute from './auth/PrivateRoute';
 
 const RouteTree = () => {
   return (
@@ -11,6 +13,9 @@ const RouteTree = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route index element={<Dashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

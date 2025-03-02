@@ -22,6 +22,9 @@ const Menu = () => {
         <li className={'nav-item'}>
           <Link className={'nav-link'} style={isActive(location, '/')} to="/">Home</Link>
         </li>
+        <li className={'nav-item'}>
+          <Link className={'nav-link'} style={isActive(location, '/dashboard')} to="/dashboard">Dashboard</Link>
+        </li>
 
         {!isAuthenticated() && (
           <Fragment>
