@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import * as ROUTES from '../GlobalConstants/urls';
 import Layout from '../core/Layout';
 import {isAuthenticated} from "../auth";
-import {Link} from 'react-router-dom';
+import {data, Link} from 'react-router-dom';
 import {createProduct} from "./apiAdmin";
 
 const AddProduct = () => {
@@ -53,7 +53,26 @@ const AddProduct = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(values);
+      setValues({...values, error: '', loading: true});
+      createProduct(user._id, token, formData)
+        .then(data => {
+          if (data.error && data.error !== '') {
+            setValues({...values, error: data.error})
+          } else {
+            setValues({
+              ...values,
+              name: '',
+              description: '',
+              price: '',
+              quantity: '',
+              photo: '',
+              loading: false,
+              error: '',
+              createdProduct: data.name,
+              redirectToProfile: true,
+            });
+          }
+      })
     }
 
     const newProductForm = () => (
