@@ -21,9 +21,19 @@ const RouteTree = () => {
         <Route path="/admin/dashboard" element={<AdminRoute />}>
           <Route index element={<AdminDashboard />} />
         </Route>
+        <Route path="*" element={<NotFound />} /> {/* Ajout de cette ligne */}
       </Routes>
     </BrowserRouter>
   );
+};
+
+const NotFound = () => {
+  return (
+    <div>
+      <h2>Erreur 404</h2>
+      <p>La page à laquelle vous essayez d'accéder n'existe pas.</p>
+    </div>
+  )
 };
 
 export default RouteTree;
