@@ -1,4 +1,5 @@
 import React from 'react';
+import * as ROUTES from '../GlobalConstants/urls';
 import Layout from '../core/Layout';
 import {isAuthenticated} from "../auth";
 import {Link} from "react-router-dom";
@@ -6,7 +7,7 @@ import {Link} from "react-router-dom";
 
 const AdminDashboard = () => {
 
-  const {user: {_id, name, email, role}} = isAuthenticated();
+  const {user: {name, email, role}} = isAuthenticated();
 
   const adminLinks = () => {
     return (
@@ -14,10 +15,10 @@ const AdminDashboard = () => {
         <h4 className={'card-header'}>Admin links</h4>
         <ul className="list-group">
           <li className={'list-group-item'}>
-            <Link className={'nav-link'} to={'/create/category'}>Create Category</Link>
+            <Link className={'nav-link'} to={ROUTES.CREATE_CATEGORY}>Create Category</Link>
           </li>
           <li className={'list-group-item'}>
-            <Link className={'nav-link'} to={'/create/product'}>Create Product</Link>
+            <Link className={'nav-link'} to={ROUTES.CREATE_PRODUCT}>Create Product</Link>
           </li>
         </ul>
       </div>

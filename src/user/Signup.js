@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import * as ROUTES from '../GlobalConstants/urls';
 import Layout from '../core/Layout';
 import { Link } from "react-router-dom";
 import {signUp} from "../auth";
@@ -58,7 +59,7 @@ const Signup = () => {
       title="Signup"
       description="Signup to Grocery App"
     >
-      <Alert type='success' condition={success}>New account is created. Please <Link to={'/signin'}>Signin</Link></Alert>
+      <Alert type='success' condition={success}>New account is created. Please <Link to={ROUTES.SIGNIN}>Signin</Link></Alert>
       <Alert type='error' condition={error}>{error}</Alert>
       {signUpForm()}
     </Layout>

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import * as ROUTES from '../GlobalConstants/urls';
 import Layout from '../core/Layout';
 import {isAuthenticated} from "../auth";
 import {Link} from 'react-router-dom';
@@ -65,7 +66,7 @@ const AddCategory = () => {
 
   const goBack = () => (
     <div className={'mt-5'}>
-      <Link to={'/admin/dashboard'} className={'text-warning'}>
+      <Link to={ROUTES.ADMIN_DASHBOARD} className={'text-warning'}>
         Back to Dashboard
       </Link>
     </div>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import * as ROUTES from '../GlobalConstants/urls';
 import Layout from '../core/Layout';
 import {signIn, authenticate, isAuthenticated} from "../auth";
 import {useNavigate} from "react-router-dom";
@@ -20,9 +21,9 @@ const Signin = () => {
   useEffect(() => {
     if (redirectToReferrer) {
       if (user && user.role.type === 1) {
-        navigate('/admin/dashboard');
+        navigate(ROUTES.ADMIN_DASHBOARD);
       } else {
-        navigate('/user/dashboard');
+        navigate(ROUTES.USER_DASHBOARD);
       }
     }
   }, [navigate, redirectToReferrer, user]);
@@ -39,7 +40,6 @@ const Signin = () => {
         if (!response.error) {
           authenticate(response, () => {
             setValues({ ...values, redirectToReferrer: true });
-            //navigate('/');
           })
         } else {
           setValues({ ...values, error: response.error, loading: false });

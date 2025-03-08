@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
+import * as ROUTES from '../GlobalConstants/urls';
 import { useEffect } from 'react';
 import { isAuthenticated } from './index';
 
@@ -7,7 +8,7 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      navigate('/signin');
+      navigate(ROUTES.SIGNIN);
     }
   }, [navigate]);
 

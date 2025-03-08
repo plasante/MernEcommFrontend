@@ -1,7 +1,8 @@
 import {API} from "../config";
+import * as ROUTES from '../GlobalConstants/urls';
 
 export const signUp = (user) => {
-  return fetch(`${API}/signup`, {
+  return fetch(`${API}${ROUTES.SIGNUP}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -16,7 +17,7 @@ export const signUp = (user) => {
 }
 
 export const signIn = (user) => {
-  return fetch(`${API}/signin`, {
+  return fetch(`${API}${ROUTES.SIGNIN}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -41,7 +42,7 @@ export const signout = (next) => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('jwt');
     next();
-    return fetch(`${API}/signout`, {
+    return fetch(`${API}${ROUTES.SIGNOUT}`, {
       method: 'GET',
     })
       .then(response => {

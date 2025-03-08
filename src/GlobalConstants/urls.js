@@ -1,0 +1,9 @@
+export const HOME = '/';
+export const SIGNIN = '/signin';
+export const SIGNUP = '/signup';
+export const SIGNOUT = '/signout';
+export const ADMIN_DASHBOARD = '/admin/dashboard';
+export const USER_DASHBOARD = '/user/dashboard';
+export const CREATE_CATEGORY = '/create/category';
+export const CREATE_PRODUCT = '/create/product';
+export const NOT_FOUND = '*';
