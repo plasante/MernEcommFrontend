@@ -1,4 +1,5 @@
 import {API} from "../config";
+import * as ROUTES from '../GlobalConstants/urls';
 
 export const createCategory = (userId, token, category) => {
   return fetch(`${API}/category/create/${userId}`, {
@@ -9,6 +10,21 @@ export const createCategory = (userId, token, category) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(category),
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(error => console.log(error));
+}
+
+export const createProduct = (userId, token, product) => {
+  return fetch(`${API}${ROUTES.CREATE_PRODUCT}${userId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: product,
   })
     .then(response => {
       return response.json();

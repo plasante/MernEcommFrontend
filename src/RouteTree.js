@@ -9,6 +9,7 @@ import AdminDashboard from './user/AdminDashboard';
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from "./auth/AdminRoute";
 import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
 
 /**
  * Todo: Utilise Suspense et lazy
@@ -28,6 +29,9 @@ const RouteTree = () => {
         </Route>
         <Route path={ROUTES.CREATE_CATEGORY} element={<AdminRoute />}>
           <Route index element={<AddCategory />} />
+        </Route>
+        <Route path={ROUTES.CREATE_PRODUCT} element={<AdminRoute />}>
+          <Route index element={<AddProduct />} />
         </Route>
         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} /> {/* Ajout de cette ligne */}
       </Routes>
