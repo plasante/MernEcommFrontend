@@ -7,6 +7,7 @@ import Dashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from "./auth/AdminRoute";
+import AddCategory from "./admin/AddCategory";
 
 const RouteTree = () => {
   return (
@@ -20,6 +21,9 @@ const RouteTree = () => {
         </Route>
         <Route path="/admin/dashboard" element={<AdminRoute />}>
           <Route index element={<AdminDashboard />} />
+        </Route>
+        <Route path="/create/category" element={<AdminRoute />}>
+          <Route index element={<AddCategory />} />
         </Route>
         <Route path="*" element={<NotFound />} /> {/* Ajout de cette ligne */}
       </Routes>
