@@ -63,9 +63,9 @@ const AddProduct = () => {
       e.preventDefault();
       setValues({...values, error: '', loading: true});
       createProduct(user._id, token, formData)
-        .then(data => {
-          if (data.error && data.error !== '') {
-            setValues({...values, error: data.error})
+        .then(product => {
+          if (product.error && product.error !== '') {
+            setValues({...values, error: product.error})
           } else {
             setValues({
               ...values,
@@ -76,7 +76,7 @@ const AddProduct = () => {
               photo: '',
               loading: false,
               error: '',
-              createdProduct: data.product.name,
+              createdProduct: product.name,
               redirectToProfile: true,
             });
             setShowSuccessDialog(true);  // Display success component
