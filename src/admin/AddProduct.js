@@ -9,6 +9,7 @@ const AddProduct = () => {
 
   // destructure user and token from localStorage.getItem('jwt')
   const {user, token} = isAuthenticated();
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const [values, setValues] = useState({
       name: '',
@@ -26,6 +27,7 @@ const AddProduct = () => {
       formData: ''
     });
 
+    // destructure the state in order to use them in the form
     const {
       name,
       description,
@@ -74,9 +76,10 @@ const AddProduct = () => {
               photo: '',
               loading: false,
               error: '',
-              createdProduct: data.name,
+              createdProduct: data.product.name,
               redirectToProfile: true,
             });
+            setShowSuccessDialog(true);  // Display success component
           }
       })
     }
@@ -138,7 +141,10 @@ const AddProduct = () => {
   )
 
   const showSuccess = () => (
-    <div className={'alert alert-info'} style={{display: createdProduct ? '' : 'none'}}>
+    <div
+      className={'alert alert-info'}
+      style={{display: showSuccessDialog ? '' : 'none'}}
+    >
       <h2>{`${createdProduct} is created!`}</h2>
     </div>
   );

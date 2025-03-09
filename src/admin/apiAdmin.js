@@ -18,9 +18,6 @@ export const createCategory = (userId, token, category) => {
 }
 
 export const createProduct = (userId, token, product) => {
-  for(let pair of product.entries()) {
-    console.log(pair[0]+ ', '+ pair[1]);
-  }
   return fetch(`${API}${ROUTES.CREATE_PRODUCT}${userId}`, {
     method: 'POST',
     headers: {
