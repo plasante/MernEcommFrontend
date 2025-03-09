@@ -43,17 +43,18 @@ const AddProduct = () => {
       formData
     } = values;
 
-    useEffect(() => {
-      getCategories().then(data => {
-        if (data.error) {
-          setValues({ ...values, error: data.error });
-        } else {
-          setValues({ ...values, categories: data, formData: new FormData() });
-        }
-      });
-    }, []);
+  useEffect(() => {
+    getCategories().then(data => {
+      console.log("useEffect de AddProduct.js")
+      if (data.error) {
+        setValues(v => ({ ...v, error: data.error }));
+      } else {
+        setValues(v => ({ ...v, categories: data, formData: new FormData() }));
+      }
+    });
+  }, []);
 
-    const handleChange = (e) => {
+  const handleChange = (e) => {
       const value = e.target.name === 'photo' ? e.target.files[0] : e.target.value;
       formData.set(e.target.name, value);
       setValues({ ...values, [e.target.name]: e.target.value});
@@ -63,9 +64,10 @@ const AddProduct = () => {
       e.preventDefault();
       setValues({...values, error: '', loading: true});
       createProduct(user._id, token, formData)
-        .then(product => {
-          if (product.error && product.error !== '') {
-            setValues({...values, error: product.error})
+        .then(data => {
+          if (data.error && data.error !== '') {
+            setValues({...values, error: data.error});
+            setShowSuccessDialog(false);
           } else {
             setValues({
               ...values,
@@ -76,7 +78,7 @@ const AddProduct = () => {
               photo: '',
               loading: false,
               error: '',
-              createdProduct: product.name,
+              createdProduct: data.product.name,
               redirectToProfile: true,
             });
             setShowSuccessDialog(true);  // Display success component
