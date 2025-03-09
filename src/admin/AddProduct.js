@@ -138,20 +138,17 @@ const AddProduct = () => {
   )
 
   const showSuccess = () => (
-    <div className={'alert alert-info'} style={{display: createProduct ? '' : 'none'}}>
-      <h2>{`$(createdProduct) is created!`}</h2>
+    <div className={'alert alert-info'} style={{display: createdProduct ? '' : 'none'}}>
+      <h2>{`${createdProduct} is created!`}</h2>
     </div>
-  )
+  );
 
-  const showLoading = () => (
-    <div className={'alert alert-info'} style={{display: createProduct ? '' : 'none'}}>
-      loading && (
-        <div className={'alert alert-success'}>
-          <h2>Loading...</h2>
-        </div>
-      )
-    </div>
-  )
+  const showLoading = () =>
+    loading && (
+      <div className={'alert alert-success'}>
+        <h2>Loading...</h2>
+      </div>
+    );
 
 
   return (
